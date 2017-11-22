@@ -1,8 +1,10 @@
 package com.earthchen.dto;
 
+import com.earthchen.validator.MyValidConstraint;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
@@ -17,14 +19,21 @@ public class User {
     }
 
     private String id;
+
+    @MyValidConstraint(message = "自定义校验注解测试")
     private String username;
 
     /**
      * @NotBlank 设置字段不为空
      */
-    @NotBlank
+    @NotBlank(message = "密码不能为空")
     private String password;
 
+    /**
+     * @Past 设置为过去的时间
+     * message 设置自定义提示信息
+     */
+    @Past(message = "生日必须为过去的时间")
     private Date birthday;
 
 

@@ -2,7 +2,9 @@ package com.earthchen.web.controller;
 
 import com.earthchen.dto.User;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.sun.applet2.preloader.event.ErrorEvent;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -108,6 +110,43 @@ public class UserController {
         user.setId("1");
         return user;
 
+    }
+
+    /**
+     * 更新user
+     *
+     * @param user
+     * @param errors
+     * @return
+     */
+    @PutMapping("/{id:\\d+}")
+    public User updateUser(@Valid @RequestBody User user, BindingResult errors) {
+
+        if (errors.hasErrors()) {
+            errors.getAllErrors().forEach(error -> {
+                FieldError fieldError = (FieldError) error;
+                String message = fieldError.getField() + " " + error.getDefaultMessage();
+                System.out.println(message);
+            });
+        }
+
+        System.out.println(user.getId());
+        System.out.println(user.getUsername());
+        System.out.println(user.getBirthday());
+        System.out.println(user.getPassword());
+
+
+        user.setId("1");
+        return user;
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    @DeleteMapping("/{id:\\d+}")
+    public void delete(@PathVariable String id) {
+        System.out.println(id);
     }
 
 }
