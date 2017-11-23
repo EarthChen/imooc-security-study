@@ -1,8 +1,9 @@
 package com.earthchen.web.controller;
 
 import com.earthchen.dto.User;
+import com.earthchen.excepetion.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.sun.applet2.preloader.event.ErrorEvent;
+import jdk.nashorn.internal.ir.IfNode;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -87,8 +88,11 @@ public class UserController {
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
-        User user = new User("tom", "11111");
-        return user;
+
+        throw new UserNotExistException(id);
+
+//        User user = new User("tom", "11111");
+//        return user;
     }
 
     /**
