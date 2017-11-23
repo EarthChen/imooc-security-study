@@ -89,10 +89,10 @@ public class UserController {
     @JsonView(User.UserDetailView.class)
     public User getInfo(@PathVariable String id) {
 
-        throw new UserNotExistException(id);
+//        throw new UserNotExistException(id);
 
-//        User user = new User("tom", "11111");
-//        return user;
+        User user = new User("tom", "11111");
+        return user;
     }
 
     /**
