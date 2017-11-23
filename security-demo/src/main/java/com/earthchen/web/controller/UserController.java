@@ -3,6 +3,8 @@ package com.earthchen.web.controller;
 import com.earthchen.dto.User;
 import com.earthchen.excepetion.UserNotExistException;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import jdk.nashorn.internal.ir.IfNode;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -28,7 +30,8 @@ public class UserController {
      */
     @GetMapping
     @JsonView(User.UserSimpleView.class)
-    public List<User> getUser(@RequestParam(required = false, defaultValue = "1111") String username) {
+    @ApiOperation(value = "用户查询服务")
+    public List<User> getUser(@ApiParam(value = "用户名") @RequestParam(required = false, defaultValue = "1111") String username) {
         List<User> users = new ArrayList<>();
         users.add(new User("111", "1111"));
         users.add(new User("111", "1111"));
@@ -87,7 +90,7 @@ public class UserController {
      */
     @GetMapping("/{id:\\d+}")
     @JsonView(User.UserDetailView.class)
-    public User getInfo(@PathVariable String id) {
+    public User getInfo(@ApiParam(value = "用户id") @PathVariable String id) {
 
 //        throw new UserNotExistException(id);
 
