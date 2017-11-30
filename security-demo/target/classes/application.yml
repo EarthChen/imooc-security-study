@@ -9,9 +9,23 @@ spring:
     store-type: none
 
 
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
+
+#应用级配置
+earthchen:
+  security:
+#    browser:
+##      配置自定义登录页,不配置则为默认登录页
+#      loginPage: /demo-signIn.html
+
+    validateCode:
+      imageCode:
+#         设置图形验证码的长度为6，不配置则为默认验证码属性
+        length: 6
+        width: 100
+        url: /user,/user/*
 
 
 
