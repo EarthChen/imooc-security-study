@@ -1,7 +1,7 @@
 package com.earthchen.security.core.validate.code.impl;
 
 import com.earthchen.security.core.properties.SecurityProperties;
-import com.earthchen.security.core.validate.code.ImageCode;
+import com.earthchen.security.core.validate.code.image.ImageCode;
 import com.earthchen.security.core.validate.code.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;

@@ -1,14 +1,13 @@
 package com.earthchen.code;
 
-import com.earthchen.security.core.validate.code.ImageCode;
+import com.earthchen.security.core.validate.code.image.ImageCode;
 import com.earthchen.security.core.validate.code.ValidateCodeGenerator;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 自定义验证码生成器
  */
-@Component("imageValidateCodeGenerator")
+//@Component("imageValidateCodeGenerator")
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
 
     /**

@@ -1,6 +1,7 @@
 package com.earthchen.security.core.validate.code;
 
 import com.earthchen.security.core.properties.SecurityProperties;
+import com.earthchen.security.core.validate.code.image.ImageCode;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
         String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getValidateCode().getImageCode().getUrl(), ",");
-        // 把配置好的需要验证码的url添加到集合中
-        urls.addAll(Arrays.asList(configUrls));
+        if (configUrls != null) {
+            // 把配置好的需要验证码的url添加到集合中
+            urls.addAll(Arrays.asList(configUrls));
+        }
         urls.add("/authentication/form");
     }
 
