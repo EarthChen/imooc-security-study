@@ -6,7 +6,7 @@ public class BrowserProperties {
     /**
      * 登录页
      */
-    private String loginPage = "/signIn.html";
+    private String loginPage = "/imooc-signIn.html";
 
     /**
      * 登录响应类型

@@ -1,25 +1,33 @@
-package com.earthchen.security.core.validate.code.impl;
+package com.earthchen.security.core.validate.code.image;
+
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.util.Random;
 
 import com.earthchen.security.core.properties.SecurityProperties;
-import com.earthchen.security.core.validate.code.image.ImageCode;
 import com.earthchen.security.core.validate.code.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Random;
-
-/**
- * 图形验证码生成逻辑
- */
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
-
+    /**
+     * 系统配置
+     */
     @Autowired
     private SecurityProperties securityProperties;
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.imooc.security.core.validate.code.ValidateCodeGenerator#generate(org.
+     * springframework.web.context.request.ServletWebRequest)
+     */
     @Override
     public ImageCode generate(ServletWebRequest request) {
         int width = ServletRequestUtils.getIntParameter(request.getRequest(), "width",
@@ -27,13 +35,15 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
         int height = ServletRequestUtils.getIntParameter(request.getRequest(), "height",
                 securityProperties.getValidateCode().getImageCode().getHeight());
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+
         Graphics g = image.getGraphics();
+
         Random random = new Random();
+
         g.setColor(getRandColor(200, 250));
         g.fillRect(0, 0, width, height);
         g.setFont(new Font("Times New Roman", Font.ITALIC, 20));
         g.setColor(getRandColor(160, 200));
-
         for (int i = 0; i < 155; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
@@ -42,26 +52,21 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
             g.drawLine(x, y, x + xl, y + yl);
         }
 
-        StringBuilder sRand = new StringBuilder();
-
+        String sRand = "";
         for (int i = 0; i < securityProperties.getValidateCode().getImageCode().getLength(); i++) {
             String rand = String.valueOf(random.nextInt(10));
-            sRand.append(rand);
-            g.setColor(new Color(20 + random.nextInt(110),
-                    20 + random.nextInt(110),
-                    20 + random.nextInt(110)));
+            sRand += rand;
+            g.setColor(new Color(20 + random.nextInt(110), 20 + random.nextInt(110), 20 + random.nextInt(110)));
             g.drawString(rand, 13 * i + 6, 16);
         }
 
         g.dispose();
 
-        return new ImageCode(image,
-                sRand.toString(),
-                securityProperties.getValidateCode().getImageCode().getExpireIn());
+        return new ImageCode(image, sRand, securityProperties.getValidateCode().getImageCode().getExpireIn());
     }
 
     /**
-     * 生成随机的背景条纹
+     * 生成随机背景条纹
      *
      * @param fc
      * @param bc
@@ -88,4 +93,7 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
     public void setSecurityProperties(SecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
+
+
+
 }

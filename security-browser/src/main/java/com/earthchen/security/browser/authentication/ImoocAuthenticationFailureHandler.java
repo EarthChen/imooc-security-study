@@ -22,7 +22,7 @@ import java.io.IOException;
 
 
 @Component("imoocAuthenctiationFailureHandler")
-public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

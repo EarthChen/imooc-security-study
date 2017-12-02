@@ -23,8 +23,8 @@ earthchen:
     validateCode:
       imageCode:
 #         设置图形验证码的长度为6，不配置则为默认验证码属性
-        length: 6
-        width: 100
+        length: 4
+        width: 67
 #        url: /user,/user/*
 
 

@@ -2,7 +2,7 @@ package com.earthchen.security.core.validate.code;
 
 
 import com.earthchen.security.core.properties.SecurityProperties;
-import com.earthchen.security.core.validate.code.impl.ImageCodeGenerator;
+import com.earthchen.security.core.validate.code.image.ImageCodeGenerator;
 import com.earthchen.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.earthchen.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;

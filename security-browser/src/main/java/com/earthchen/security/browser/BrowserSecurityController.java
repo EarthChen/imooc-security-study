@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.earthchen.security.browser.support.SimpleResponse;
+import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -50,25 +51,21 @@ public class BrowserSecurityController {
      * @return
      * @throws IOException
      */
-    @RequestMapping("/authentication/require")
-    @ResponseStatus(code = HttpStatus.UNAUTHORIZED) // 设置状态吗为401
+    @RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        // 拿到引发跳转的请求
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();
             logger.info("引发跳转的请求是:" + targetUrl);
             if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
-                // 引发跳转
-                redirectStrategy.sendRedirect(request,
-                        response,
-                        // 跳转到的url
-                        securityProperties.getBrowser().getLoginPage());
+                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
             }
         }
+
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页");
     }
 }
