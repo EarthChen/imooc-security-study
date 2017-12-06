@@ -16,6 +16,12 @@
     },
     {
       "sourceType": "com.earthchen.security.core.properties.SecurityProperties",
+      "name": "earthchen.security.social",
+      "description": "社交登录相关配置",
+      "type": "com.earthchen.security.core.properties.SocialProperties"
+    },
+    {
+      "sourceType": "com.earthchen.security.core.properties.SecurityProperties",
       "name": "earthchen.security.validate-code",
       "description": "验证码配置",
       "type": "com.earthchen.security.core.properties.ValidateCodeProperties"

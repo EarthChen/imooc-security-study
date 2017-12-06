@@ -1,6 +1,7 @@
 package com.earthchen.security.browser;
 
 import javax.sql.DataSource;
+import javax.swing.*;
 
 import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
@@ -39,7 +40,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
-
+    @Autowired
+    private SpringSocialConfigurer earthchenSocialConfig;
 
 
     /**
@@ -133,9 +135,15 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
         applyPasswordAuthenticationConfig(http);
 
-        http.apply(validateCodeSecurityConfig)
+        http
+                // 应用验证码安全配置
+                .apply(validateCodeSecurityConfig)
                 .and()
+                // 应用短信验证码认证安全配置
                 .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                // 引用社交配置
+                .apply(earthchenSocialConfig)
                 .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
@@ -149,7 +157,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         "/v2/api-docs",//swagger api json
                         "/swagger-resources/configuration/ui",//用来获取支持的动作
                         "/swagger-resources",//用来获取api-docs的URI
