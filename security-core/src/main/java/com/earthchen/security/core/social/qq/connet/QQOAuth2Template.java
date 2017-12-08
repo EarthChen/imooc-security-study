@@ -1,4 +1,4 @@
-package com.earthchen.security.core.social.qq.api;
+package com.earthchen.security.core.social.qq.connet;
 
 import java.nio.charset.Charset;
 

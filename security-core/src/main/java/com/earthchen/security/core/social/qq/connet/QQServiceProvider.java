@@ -2,7 +2,6 @@ package com.earthchen.security.core.social.qq.connet;
 
 import com.earthchen.security.core.social.qq.api.QQ;
 import com.earthchen.security.core.social.qq.api.QQImpl;
-import com.earthchen.security.core.social.qq.api.QQOAuth2Template;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 
 /**
