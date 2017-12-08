@@ -13,6 +13,11 @@ public class SocialProperties {
     private QQProperties qq = new QQProperties();
 
     /**
+     * 微信配置项
+     */
+    private WeixinProperties weixin = new WeixinProperties();
+
+    /**
      * 拦截社交登录过滤url
      */
     private String filterProcessesUrl = "/auth";
@@ -31,5 +36,13 @@ public class SocialProperties {
 
     public void setFilterProcessesUrl(String filterProcessesUrl) {
         this.filterProcessesUrl = filterProcessesUrl;
+    }
+
+    public WeixinProperties getWeixin() {
+        return weixin;
+    }
+
+    public void setWeixin(WeixinProperties weixin) {
+        this.weixin = weixin;
     }
 }

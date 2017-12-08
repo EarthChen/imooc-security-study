@@ -3,6 +3,7 @@ package com.earthchen.security;
 
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.social.connect.ConnectionSignUp;
  *
  * 实现用户使用第三方登录完默认注册一个用户并登录
  */
+@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {
 
     /* (non-Javadoc)

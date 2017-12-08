@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     password: 123456
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/security-demo?useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/security-demo?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
 
   session:
     store-type: none
@@ -31,12 +31,15 @@ earthchen:
     social:
       qq:
         app-id: 100550231
-        app-secret:
+        app-secret: 4444444444444
         # 设置providerId
         providerId: callback.do
         # 将社交登录social前缀的/auth改为以下内容
+      weixin:
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4
 
-      filterProcessesUrl: /social-auth
+      filterProcessesUrl: /qqLogin
         # 最终url为/social-auth/callback.do
 
 

@@ -6,6 +6,7 @@ import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 
 /**
  * qq服务提供者
+ *  qq的OAuth2流程处理器的提供器，供spring social的connect体系调用
  */
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 

@@ -6,7 +6,6 @@ import org.springframework.social.connect.ApiAdapter;
 import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 
-import java.io.IOException;
 
 public class QQAdapter implements ApiAdapter<QQ> {
 
