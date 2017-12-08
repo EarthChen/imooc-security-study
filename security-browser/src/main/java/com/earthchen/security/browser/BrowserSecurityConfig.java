@@ -157,7 +157,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
+                        securityProperties.getBrowser().getRegisterPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                        "/user/register",
                         "/v2/api-docs",//swagger api json
                         "/swagger-resources/configuration/ui",//用来获取支持的动作
                         "/swagger-resources",//用来获取api-docs的URI

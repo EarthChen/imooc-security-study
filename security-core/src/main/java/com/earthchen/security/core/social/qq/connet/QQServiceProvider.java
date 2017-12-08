@@ -2,8 +2,8 @@ package com.earthchen.security.core.social.qq.connet;
 
 import com.earthchen.security.core.social.qq.api.QQ;
 import com.earthchen.security.core.social.qq.api.QQImpl;
+import com.earthchen.security.core.social.qq.api.QQOAuth2Template;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
 
 /**
  * qq服务提供者
@@ -32,7 +32,9 @@ public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
      * @param oauth2Operations the OAuth2Operations template for conducting the OAuth 2 flow with the provider.
      */
     public QQServiceProvider(String appId, String appSecret) {
-        super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+        //super(new OAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+        super(new QQOAuth2Template(appId, appSecret, URL_AUTHORIZE, URL_ACCESS_TOKEN));
+        this.appId = appId;
     }
 
     @Override

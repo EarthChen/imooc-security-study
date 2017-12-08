@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.earthchen.security.browser.support.SimpleResponse;
+import com.earthchen.security.browser.support.SocialUserInfo;
 import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.ServletWebRequest;
 
 
 /**
@@ -41,6 +43,9 @@ public class BrowserSecurityController {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
 
 
     /**
@@ -67,5 +72,22 @@ public class BrowserSecurityController {
         }
 
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页");
+    }
+
+    /**
+     * 获取社交用户信息
+     * @param request
+     * @return
+     */
+    @GetMapping("/social/user")
+    public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
+        SocialUserInfo userInfo = new SocialUserInfo();
+        Connection<?> connection = providerSignInUtils
+                .getConnectionFromSession(new ServletWebRequest(request));
+        userInfo.setProviderId(connection.getKey().getProviderId());
+        userInfo.setProviderUserId(connection.getKey().getProviderUserId());
+        userInfo.setNickname(connection.getDisplayName());
+        userInfo.setHeadimg(connection.getImageUrl());
+        return userInfo;
     }
 }

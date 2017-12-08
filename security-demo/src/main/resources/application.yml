@@ -16,9 +16,11 @@ spring:
 #应用级配置
 earthchen:
   security:
-#    browser:
+    browser:
 ##      配置自定义登录页,不配置则为默认登录页
 #      loginPage: /demo-signIn.html
+      # 配置自定义注册页
+      registerPage: /demo-signUp.html
 
     validateCode:
       imageCode:

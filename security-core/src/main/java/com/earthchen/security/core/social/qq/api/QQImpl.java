@@ -1,6 +1,8 @@
 package com.earthchen.security.core.social.qq.api;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +14,8 @@ import java.io.IOException;
  * qq接口实现类
  */
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * 获取openid的url
@@ -43,7 +47,7 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         String url = String.format(URL_GET_OPENID, accessToken);
         String result = getRestTemplate().getForObject(url, String.class);
 
-        System.out.println(result);
+        logger.info(result);
 
         this.openId = StringUtils.substringBetween(result, "\"openid\":\"", "\"}");
     }
@@ -60,11 +64,14 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
         // 拼获取用户信息的url
         String url = String.format(URL_GET_USERINFO, appId, openId);
         String result = getRestTemplate().getForObject(url, String.class);
-        System.out.println(result);
+        logger.info(result);
 
+        QQUserInfo userInfo;
         try {
-            return objectMapper.readValue(result, QQUserInfo.class);
-        } catch (IOException e) {
+            userInfo = objectMapper.readValue(result, QQUserInfo.class);
+            userInfo.setOpenId(openId);
+            return userInfo;
+        } catch (Exception e) {
             throw new RuntimeException("获取用户信息失败", e);
         }
     }

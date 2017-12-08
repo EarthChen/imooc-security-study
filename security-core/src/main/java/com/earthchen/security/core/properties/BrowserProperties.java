@@ -9,6 +9,11 @@ public class BrowserProperties {
     private String loginPage = "/imooc-signIn.html";
 
     /**
+     * 注册页
+     */
+    private String registerPage = "/imooc-signUp.html";
+
+    /**
      * 登录响应类型
      */
     private LoginResponseType loginType = LoginResponseType.JSON;
@@ -42,4 +47,13 @@ public class BrowserProperties {
     public void setRememberMeSeconds(int rememberMeSeconds) {
         this.rememberMeSeconds = rememberMeSeconds;
     }
+
+    public String getRegisterPage() {
+        return registerPage;
+    }
+
+    public void setRegisterPage(String registerPage) {
+        this.registerPage = registerPage;
+    }
+
 }
