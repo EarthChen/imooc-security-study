@@ -3,7 +3,7 @@ package com.earthchen.security.core.social.weixin.config;
 
 import com.earthchen.security.core.properties.SecurityProperties;
 import com.earthchen.security.core.properties.WeixinProperties;
-import com.earthchen.security.core.social.ImoocConnectView;
+import com.earthchen.security.core.social.view.ImoocConnectView;
 import com.earthchen.security.core.social.weixin.connet.WeixinConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
