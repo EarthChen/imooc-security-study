@@ -4,6 +4,11 @@ package com.earthchen.security.core.properties;
 public class BrowserProperties {
 
     /**
+     * session配置
+     */
+    private SessionProperties session = new SessionProperties();
+
+    /**
      * 登录页
      */
     private String loginPage = "/imooc-signIn.html";
@@ -54,6 +59,14 @@ public class BrowserProperties {
 
     public void setRegisterPage(String registerPage) {
         this.registerPage = registerPage;
+    }
+
+    public SessionProperties getSession() {
+        return session;
+    }
+
+    public void setSession(SessionProperties session) {
+        this.session = session;
     }
 
 }

@@ -9,6 +9,7 @@ spring:
     store-type: none
 
 
+
 #security:
 #  basic:
 #    enabled: false
@@ -39,8 +40,14 @@ earthchen:
         app-id: wxd99431bbff8305a0
         app-secret: 60f78681d063590a469f1b297feff3c4
 
+      # 最终url为/social-auth/callback.do
       filterProcessesUrl: /qqLogin
-        # 最终url为/social-auth/callback.do
+
+server:
+  session:
+#  设置session超时时间(最小是1分钟 )
+    timeout: 600
+
 
 
 

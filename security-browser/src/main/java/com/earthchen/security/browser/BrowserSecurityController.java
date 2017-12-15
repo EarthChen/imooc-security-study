@@ -76,6 +76,7 @@ public class BrowserSecurityController {
 
     /**
      * 获取社交用户信息
+     *
      * @param request
      * @return
      */
@@ -89,5 +90,16 @@ public class BrowserSecurityController {
         userInfo.setNickname(connection.getDisplayName());
         userInfo.setHeadimg(connection.getImageUrl());
         return userInfo;
+    }
+
+    /**
+     * session失效的方法
+     * @return
+     */
+    @GetMapping("/session/invalid")
+    @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public SimpleResponse sessionInvalid() {
+        String message = "session失效";
+        return new SimpleResponse(message);
     }
 }
