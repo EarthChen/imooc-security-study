@@ -1,11 +1,14 @@
 package com.earthchen.security.core.validate.code;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * 验证码父类
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable{
+
+    private static final long serialVersionUID = -436475944223625617L;
 
     private String code;
 

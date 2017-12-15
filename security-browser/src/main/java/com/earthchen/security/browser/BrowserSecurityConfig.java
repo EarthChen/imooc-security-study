@@ -1,9 +1,7 @@
 package com.earthchen.security.browser;
 
 import javax.sql.DataSource;
-import javax.swing.*;
 
-import com.earthchen.security.browser.session.ImoocExpiredSessionStrategy;
 import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
 import com.earthchen.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -16,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -49,6 +48,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
 
 
     /**
@@ -145,41 +147,47 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         http
                 // 应用验证码安全配置
                 .apply(validateCodeSecurityConfig)
-                .and()
+                    .and()
                 // 应用短信验证码认证安全配置
                 .apply(smsCodeAuthenticationSecurityConfig)
-                .and()
+                    .and()
                 // 引用社交配置
                 .apply(earthchenSocialConfig)
-                .and()
+                    .and()
                 .rememberMe()
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
-                .userDetailsService(userDetailsService)
-                .and()
+                    .tokenRepository(persistentTokenRepository())
+                    .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+                    .userDetailsService(userDetailsService)
+                    .and()
                 // session 配置
                 .sessionManagement()
-                .invalidSessionStrategy(invalidSessionStrategy)
-                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
-                .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
-                .expiredSessionStrategy(sessionInformationExpiredStrategy)
-                // 设置session失效之后跳转到的url
-//                .invalidSessionUrl("/session/invalid")
-//                // 设置最大session数量
-//                .maximumSessions(1)
-//                //当session数量达到最大时，阻止后来的用户登录
-//                //.maxSessionsPreventsLogin(true)
-//                // session超时处理策略
-//                .expiredSessionStrategy(new ImoocExpiredSessionStrategy())
-                .and()
-                .and()
-
+                    .invalidSessionStrategy(invalidSessionStrategy)
+                    .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                    .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+                    .expiredSessionStrategy(sessionInformationExpiredStrategy)
+                    // 设置session失效之后跳转到的url
+    //                .invalidSessionUrl("/session/invalid")
+    //                // 设置最大session数量
+    //                .maximumSessions(1)
+    //                //当session数量达到最大时，阻止后来的用户登录
+    //                //.maxSessionsPreventsLogin(true)
+    //                // session超时处理策略
+    //                .expiredSessionStrategy(new ImoocExpiredSessionStrategy())
+                    .and()
+                    .and()
+                .logout()
+                    .logoutUrl("/signOut")
+                    //.logoutSuccessUrl("/imooc-logout.html")
+                    .logoutSuccessHandler(logoutSuccessHandler)
+                    .deleteCookies("JSESSIONID")
+                    .and()
                 .authorizeRequests()
                 .antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         securityProperties.getBrowser().getRegisterPage(),
+                        securityProperties.getBrowser().getSignOutUrl(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         "/user/register",
                         "/session/invalid",

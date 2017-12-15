@@ -29,6 +29,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
 
     /**
      * 创建验证码
+     *
      * @param request
      * @throws Exception
      */
@@ -63,7 +64,9 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode>
      * @param validateCode
      */
     private void save(ServletWebRequest request, C validateCode) {
-        sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
+        // 只将验证码的验证码和过期时间存入session
+        ValidateCode code = new ValidateCode(validateCode.getCode(), validateCode.getExpireTime());
+        sessionStrategy.setAttribute(request, getSessionKey(request), code);
     }
 
     /**

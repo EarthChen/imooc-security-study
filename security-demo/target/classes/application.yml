@@ -6,7 +6,13 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/security-demo?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
 
   session:
-    store-type: none
+#    设置spring-session存储类型
+    store-type: redis
+
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+
 
 
 
@@ -22,6 +28,9 @@ earthchen:
 #      loginPage: /demo-signIn.html
       # 配置自定义注册页
       registerPage: /demo-signUp.html
+      # 自定义退出登录成功页
+      signOutUrl: /demo-logout.html
+
 
     validateCode:
       imageCode:
@@ -43,10 +52,13 @@ earthchen:
       # 最终url为/social-auth/callback.do
       filterProcessesUrl: /qqLogin
 
+
+
 server:
   session:
 #  设置session超时时间(最小是1分钟 )
     timeout: 600
+  port: 8080
 
 
 

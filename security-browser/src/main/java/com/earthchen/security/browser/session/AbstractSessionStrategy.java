@@ -18,6 +18,10 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+/**
+ * 抽象的session失效处理器
+ */
 public class AbstractSessionStrategy {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
