@@ -53,15 +53,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private LogoutSuccessHandler logoutSuccessHandler;
 
 
-    /**
-     * 设置加密解密算法
-     *
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
 
 
     @Bean
@@ -187,7 +179,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         securityProperties.getBrowser().getRegisterPage(),
-                        securityProperties.getBrowser().getSignOutUrl(),
+//                        securityProperties.getBrowser().getSignOutUrl(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         "/user/register",
                         "/session/invalid",

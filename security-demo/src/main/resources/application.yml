@@ -61,5 +61,14 @@ server:
   port: 8080
 
 
+security:
+  oauth2:
+    client:
+      client-id: earthchen
+      client-secret: earthchensecret
+
+
+
+
 
 

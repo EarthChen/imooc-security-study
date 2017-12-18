@@ -1,13 +1,12 @@
-package com.earthchen.security.browser.authentication;
+package com.earthchen.security.app.authentication;
 
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.earthchen.security.core.support.SimpleResponse;
-import com.earthchen.security.core.properties.LoginResponseType;
-import com.earthchen.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,9 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.IOException;
-
-
+/**
+ * APP环境下认证失败处理器
+ */
 @Component("imoocAuthenticationFailureHandler")
 public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
@@ -28,10 +27,6 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private SecurityProperties securityProperties;
-
 
     /* (non-Javadoc)
      * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
@@ -42,12 +37,10 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
 
         logger.info("登录失败");
 
-        if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
-            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
-        }else{
-            super.onAuthenticationFailure(request, response, exception);
-        }
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
+
     }
+
 }

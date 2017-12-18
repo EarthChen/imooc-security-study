@@ -13,9 +13,14 @@
 
 
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.earthchen</groupId>-->
+            <!--<artifactId>security-browser</artifactId>-->
+            <!--<version>${earthchen.security.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.earthchen</groupId>
-            <artifactId>security-browser</artifactId>
+            <artifactId>security-app</artifactId>
             <version>${earthchen.security.version}</version>
         </dependency>
 

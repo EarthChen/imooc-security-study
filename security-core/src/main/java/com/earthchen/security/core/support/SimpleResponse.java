@@ -1,4 +1,4 @@
-package com.earthchen.security.browser.support;
+package com.earthchen.security.core.support;
 
 public class SimpleResponse {
 

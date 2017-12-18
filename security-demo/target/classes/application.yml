@@ -29,7 +29,7 @@ earthchen:
       # 配置自定义注册页
       registerPage: /demo-signUp.html
       # 自定义退出登录成功页
-      signOutUrl: /demo-logout.html
+#      signOutUrl: /demo-logout.html
 
 
     validateCode:
@@ -59,6 +59,15 @@ server:
 #  设置session超时时间(最小是1分钟 )
     timeout: 600
   port: 8080
+
+
+security:
+  oauth2:
+    client:
+      client-id: earthchen
+      client-secret: earthchensecret
+
+
 
 
 
