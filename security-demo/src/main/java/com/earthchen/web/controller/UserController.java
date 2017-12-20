@@ -1,7 +1,7 @@
 package com.earthchen.web.controller;
 
 import com.earthchen.dto.User;
-import com.earthchen.excepetion.UserNotExistException;
+import com.earthchen.security.app.social.AppSingUpUtils;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -28,12 +28,16 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
+    @Autowired
+    private AppSingUpUtils appSingUpUtils;
+
     @PostMapping("/register")
     public void register(User user, HttpServletRequest request) {
 
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
         String userId = user.getUsername();
-        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+        appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
     }
 
     /**

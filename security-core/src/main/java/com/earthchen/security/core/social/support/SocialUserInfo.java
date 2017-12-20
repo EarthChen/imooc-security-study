@@ -1,4 +1,4 @@
-package com.earthchen.security.browser.support;
+package com.earthchen.security.core.social.support;
 
 /**
  * 社交用户信息

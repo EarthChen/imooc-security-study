@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.earthchen.security.core.support.SimpleResponse;
-import com.earthchen.security.browser.support.SocialUserInfo;
+import com.earthchen.security.core.social.support.SocialUserInfo;
 import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;

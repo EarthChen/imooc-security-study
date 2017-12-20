@@ -16,6 +16,12 @@
     },
     {
       "sourceType": "com.earthchen.security.core.properties.SecurityProperties",
+      "name": "earthchen.security.oauth2",
+      "description": "OAuth2认证服务器配置",
+      "type": "com.earthchen.security.core.properties.OAuth2Properties"
+    },
+    {
+      "sourceType": "com.earthchen.security.core.properties.SecurityProperties",
       "name": "earthchen.security.social",
       "description": "社交登录相关配置",
       "type": "com.earthchen.security.core.properties.SocialProperties"

@@ -51,6 +51,20 @@ earthchen:
 
       # 最终url为/social-auth/callback.do
       filterProcessesUrl: /qqLogin
+    # 配置oauth2
+    oauth2:
+      # 对多个应用进行配置
+      clients[0]:
+        clientId: earthchen0
+        clientSecret: earthchensecret0
+        accessTokenValidateSeconds: 3600
+      clients[1]:
+        clientId: earthchen1
+        clientSecret: earthchensecret1
+        accessTokenValidateSeconds: 7200
+
+
+
 
 
 
@@ -61,11 +75,6 @@ server:
   port: 8080
 
 
-security:
-  oauth2:
-    client:
-      client-id: earthchen
-      client-secret: earthchensecret
 
 
 

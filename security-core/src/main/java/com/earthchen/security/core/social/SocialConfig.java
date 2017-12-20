@@ -1,6 +1,8 @@
 package com.earthchen.security.core.social;
 
 import com.earthchen.security.core.properties.SecurityProperties;
+import com.earthchen.security.core.social.support.ImoocSpringSocialConfigurer;
+import com.earthchen.security.core.social.support.SocialAuthenticationFilterPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +37,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Autowired(required = false)
     private ConnectionSignUp connectionSignUp;
 
+    @Autowired(required = false)
+    private SocialAuthenticationFilterPostProcessor socialAuthenticationFilterPostProcessor;
+
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
 //        return new JdbcUsersConnectionRepository(dataSource,
@@ -60,6 +65,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         ImoocSpringSocialConfigurer configurer = new ImoocSpringSocialConfigurer(filterProcessesUrl);
         // 设置social中的注册页为
         configurer.signupUrl(securityProperties.getBrowser().getRegisterPage());
+        configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
         return configurer;
     }
 
