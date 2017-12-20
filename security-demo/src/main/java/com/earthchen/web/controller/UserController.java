@@ -2,12 +2,15 @@ package com.earthchen.web.controller;
 
 import com.earthchen.dto.User;
 import com.earthchen.security.app.social.AppSingUpUtils;
+import com.earthchen.security.core.properties.SecurityProperties;
 import com.fasterxml.jackson.annotation.JsonView;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,6 +20,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,22 +35,37 @@ public class UserController {
     @Autowired
     private AppSingUpUtils appSingUpUtils;
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     @PostMapping("/register")
     public void register(User user, HttpServletRequest request) {
 
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
         String userId = user.getUsername();
         //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSingUpUtils.doPostSignUp(new ServletWebRequest(request),userId);
+        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
     }
 
     /**
      * 直接拿到当前用户的信息
+     *
      * @param user
      * @return
      */
     @GetMapping("/me")
-    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user){
+    public Object getCurrentUser(Authentication user, HttpServletRequest request) throws UnsupportedEncodingException {
+
+        String token = StringUtils.substringAfter(request.getHeader("Authorization"), "Bearer ");
+
+        Claims claims = Jwts.parser().setSigningKey(
+                securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+                .parseClaimsJws(token).getBody();
+        // 拿到自定义增强的参数
+        String company = (String) claims.get("company");
+
+        System.out.println(company);
+
         return user;
     }
 
@@ -179,6 +198,7 @@ public class UserController {
 
     /**
      * 删除
+     *
      * @param id
      */
     @DeleteMapping("/{id:\\d+}")

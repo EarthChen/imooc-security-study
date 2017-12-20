@@ -63,6 +63,8 @@ earthchen:
         clientSecret: earthchensecret1
         accessTokenValidateSeconds: 7200
 
+      storeType: jwt
+
 
 
 
