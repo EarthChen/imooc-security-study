@@ -1,0 +1,15 @@
+security:
+  oauth2:
+    client:
+      clientId: earthchen1
+      clientSecret: earthchensecret1
+      user-authorization-uri: http://127.0.0.1:9999/server/oauth/authorize
+      access-token-uri: http://127.0.0.1:9999/server/oauth/token
+    resource:
+      jwt:
+        key-uri: http://127.0.0.1:9999/server/oauth/token_key
+server:
+  port: 8080
+  context-path: /client1
+
+
