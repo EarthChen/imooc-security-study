@@ -12,13 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableConfigurationProperties(SecurityProperties.class)
 public class SecurityCoreConfig {
 
-    /**
-     * 设置加密解密算法
-     *
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    /**
+//     * 设置加密解密算法
+//     *
+//     * @return
+//     */
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 }

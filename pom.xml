@@ -19,6 +19,8 @@
         <module>security-app</module>
         <module>security-browser</module>
         <module>security-demo</module>
+        <module>security-authorize</module>
+        <module>test</module>
     </modules>
 
     <dependencyManagement>

@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: 123456
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/security-demo?useUnicode=yes&characterEncoding=UTF-8&useSSL=false
+    dbcp2:
+      min-evictable-idle-time-millis: 180000
+      test-on-borrow: true
+      test-on-return: true
+      test-while-idle: true
+      validation-query: select 1
+    tomcat:
+      max-active: 100
+      min-idle: 10
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+  session:
+    store-type: none
+server:
+  session:
+    timeout: 600
+
+earthchen:
+  security:
+    browser:
+      loginType: REDIRECT
+      singInSuccessUrl: /manage.html
+      registerPage: /signUp.html
+
+    social:
+      qq:
+        app-id: 100550231
+        app-secret: 4444444444444
+        # 设置providerId
+        providerId: callback.do
+        # 将社交登录social前缀的/auth改为以下内容
+      weixin:
+        app-id: wxd99431bbff8305a0
+        app-secret: 60f78681d063590a469f1b297feff3c4
+
+      # 最终url为/social-auth/callback.do
+      filterProcessesUrl: /qqLogin
+
+
+
+

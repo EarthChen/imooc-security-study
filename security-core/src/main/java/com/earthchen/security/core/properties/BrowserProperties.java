@@ -24,6 +24,13 @@ public class BrowserProperties {
     private LoginResponseType loginType = LoginResponseType.JSON;
 
     /**
+     * 登录成功后跳转的地址，如果设置了此属性，则登录成功后总是会跳到这个地址上。
+     *
+     * 只在signInResponseType为REDIRECT时生效
+     */
+    private String singInSuccessUrl;
+
+    /**
      * 记住我时间秒数
      */
     private int rememberMeSeconds = 3600;
@@ -80,6 +87,14 @@ public class BrowserProperties {
 
     public void setSignOutUrl(String signOutUrl) {
         this.signOutUrl = signOutUrl;
+    }
+
+    public String getSingInSuccessUrl() {
+        return singInSuccessUrl;
+    }
+
+    public void setSingInSuccessUrl(String singInSuccessUrl) {
+        this.singInSuccessUrl = singInSuccessUrl;
     }
 
 }

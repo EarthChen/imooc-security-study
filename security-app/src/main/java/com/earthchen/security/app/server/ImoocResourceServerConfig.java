@@ -1,10 +1,11 @@
 package com.earthchen.security.app.server;
 
 import com.earthchen.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
+import com.earthchen.security.core.authorize.AuthorizeConfigManager;
 import com.earthchen.security.core.properties.SecurityConstants;
 import com.earthchen.security.core.properties.SecurityProperties;
 import com.earthchen.security.core.validate.code.ValidateCodeSecurityConfig;
-import com.earthchen.security.core.validate.code.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.earthchen.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,6 +40,9 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.formLogin()
@@ -61,24 +65,9 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .apply(openIdAuthenticationSecurityConfig)
                 .and()
 
-                .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        securityProperties.getBrowser().getRegisterPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        "/social/signUp",
-                        "/user/register",
-                        "/session/invalid",
-                        "/v2/api-docs",//swagger api json
-                        "/swagger-resources/configuration/ui",//用来获取支持的动作
-                        "/swagger-resources",//用来获取api-docs的URI
-                        "/swagger-resources/configuration/security",//安全选项
-                        "/swagger-ui.html").permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .csrf().disable();
+
+        // 引用默认配置
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 }

@@ -1,7 +1,7 @@
 package com.earthchen.web.controller;
 
 import com.earthchen.dto.User;
-import com.earthchen.security.app.social.AppSingUpUtils;
+//import com.earthchen.security.app.social.AppSingUpUtils;
 import com.earthchen.security.core.properties.SecurityProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.jsonwebtoken.Claims;
@@ -32,8 +32,8 @@ public class UserController {
     @Autowired
     private ProviderSignInUtils providerSignInUtils;
 
-    @Autowired
-    private AppSingUpUtils appSingUpUtils;
+//    @Autowired
+//    private AppSingUpUtils appSingUpUtils;
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -43,8 +43,8 @@ public class UserController {
 
         //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
         String userId = user.getUsername();
-        //providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
+        providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//        appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
     }
 
     /**
